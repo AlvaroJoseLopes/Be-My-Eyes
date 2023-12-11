@@ -23,7 +23,7 @@ For default, the backend will be running at port `127.0.0.1:8000`.
 ## Frontend
 
 ```bash
-streamlit
+streamlit run frontend.py
 ```
 
 For default, the frontend will be running at port `8501`.
