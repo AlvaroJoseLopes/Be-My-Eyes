@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL.Image import Image
 from .model import Model
 from transformers import pipeline
 
