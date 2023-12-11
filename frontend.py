@@ -1,9 +1,10 @@
-from streamlit.runtime.uploaded_file_manager import UploadedFile
 import streamlit as st
 from gtts import gTTS
 
+import base64
 import requests
 from io import BytesIO
+
 
 # Parameters and utils function
 MODEL_NAMES = ["pretrained", "trained"]
@@ -12,10 +13,17 @@ URL = "http://127.0.0.1:8000/inference"
 
 
 @st.cache_data(show_spinner="Fetching backend API to get image caption...")
-def get_caption(model: str, image: UploadedFile):
-    params = {"model_name": model, "image_url": "teste"}
+def get_caption(model: str, image: bytes, filename: str) -> str:
+    params = {"model_name": model}
+    content = base64.b64encode(image).decode("utf-8")
+    data = {"filename": filename, "content": content}
     try:
-        res = requests.get(URL, params=params)
+        res = requests.post(
+            URL,
+            params=params,
+            json=data,
+            headers={"Content-Type": "application/json", "Accept": "application/json"},
+        )
         data = res.json()
         if res.status_code == 200:
             return data["caption"]
@@ -28,7 +36,7 @@ def get_caption(model: str, image: UploadedFile):
 
 
 @st.cache_data(show_spinner="Converting caption text to speech...")
-def get_audio(caption: str):
+def get_audio(caption: str) -> BytesIO:
     mp3_fp = BytesIO()
     tts = gTTS(caption, lang="en")
     tts.write_to_fp(mp3_fp)
@@ -54,7 +62,7 @@ image = st.file_uploader(
 
 if image is not None:
     bytes_data = image.read()
-    caption = get_caption(model, image)
+    caption = get_caption(model, bytes_data, image.name)
     st.image(bytes_data, caption=caption)
 
     st.markdown("### Audio Description")
