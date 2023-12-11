@@ -13,12 +13,12 @@ class PretrainedModel(Model):
         )
         self.warmup()
 
-    def warmup(self):
+    def warmup(self) -> None:
         print(f"Warming up {self.model_name} model...")
         for img in self.get_warmup_imgs():
             _ = self.model(img)
         print(f"Finished {self.model_name} model warmup!")
 
-    def inference(self, img: Image):
+    def inference(self, img: Image) -> str:
         caption = self.model(img)[0]["generated_text"]
         return caption

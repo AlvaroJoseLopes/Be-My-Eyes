@@ -11,7 +11,7 @@ class Model:
             img = Image.open(filename)
             yield img
 
-    def warmup(self):
+    def warmup(self) -> None:
         raise NotImplementedError
 
     def inference(self, img: Image) -> str:
