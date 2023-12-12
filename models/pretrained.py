@@ -1,4 +1,4 @@
-from PIL.Image import Image
+from PIL import Image
 from .model import Model
 from transformers import pipeline
 
@@ -19,6 +19,6 @@ class PretrainedModel(Model):
             _ = self.model(img)
         print(f"Finished {self.model_name} model warmup!")
 
-    def inference(self, img: Image) -> str:
+    def inference(self, img: Image.Image) -> str:
         caption = self.model(img)[0]["generated_text"]
         return caption
