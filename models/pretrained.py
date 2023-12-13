@@ -1,9 +1,11 @@
 from PIL import Image
-from .model import Model
+from .model import BaseModel
 from transformers import pipeline
 
+from loguru import logger
 
-class PretrainedModel(Model):
+
+class PretrainedModel(BaseModel):
     def __init__(self):
         super().__init__("pretrained")
         self.model = pipeline(
@@ -14,10 +16,10 @@ class PretrainedModel(Model):
         self.warmup()
 
     def warmup(self) -> None:
-        print(f"Warming up {self.model_name} model...")
+        logger.info(f"Warming up {self.model_name} model...")
         for img in self.get_warmup_imgs():
             _ = self.model(img)
-        print(f"Finished {self.model_name} model warmup!")
+        logger.info(f"Finished {self.model_name} model warmup!")
 
     def inference(self, img: Image.Image) -> str:
         caption = self.model(img)[0]["generated_text"]

@@ -4,7 +4,7 @@ import os
 IMGS_FOLDER = "imgs"
 
 
-class Model:
+class BaseModel:
     def __init__(self, name: str):
         self.model_name = name
 
