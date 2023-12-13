@@ -4,6 +4,7 @@ from gtts import gTTS
 import base64
 import requests
 from io import BytesIO
+from loguru import logger
 
 
 # Parameters and utils function
@@ -28,10 +29,10 @@ def get_caption(model: str, image: bytes, filename: str) -> str:
         if res.status_code == 200:
             return data["caption"]
         else:
-            print(f"Message error from the API: {data}")
+            logger.warning(f"Message error from the API: {data}")
             return f"Unable to get caption"
     except Exception as e:
-        print(e)
+        logger.warning(e)
         return f"Unable to get caption"
 
 
