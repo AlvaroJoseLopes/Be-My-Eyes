@@ -21,7 +21,7 @@ MAX_LENGTH = 35
 
 class VggLstmModel(BaseModel):
     def __init__(self):
-        super().__init__("trained")
+        super().__init__("vgg+lstm")
         logger.info(f"Loading VGG model ...")
         self.vgg = VGG16()
         self.vgg = Model(inputs=self.vgg.inputs, outputs=self.vgg.layers[-2].output)
