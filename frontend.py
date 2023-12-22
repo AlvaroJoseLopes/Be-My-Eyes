@@ -8,7 +8,7 @@ from loguru import logger
 
 
 # Parameters and utils function
-MODEL_NAMES = ["pretrained", "trained"]
+MODEL_NAMES = ["pretrained", "vgg+lstm"]
 ALLOWED_IMG_TYPES = ["png", "jpeg", "jpg"]
 URL = "http://127.0.0.1:8000/inference"
 

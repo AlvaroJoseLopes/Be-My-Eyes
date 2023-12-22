@@ -10,13 +10,13 @@ from models.pretrained import PretrainedModel
 
 from models.vgg_lstm import VggLstmModel
 
-models = {"pretrained": PretrainedModel(), "trained": VggLstmModel()}
+models = {"pretrained": PretrainedModel(), "vgg+lstm": VggLstmModel()}
 
 
 # All models available
 class ModelName(str, Enum):
     pretrained = "pretrained"
-    trained = "trained"
+    vgg_lstm = "vgg+lstm"
 
 
 # Expected Body definition
